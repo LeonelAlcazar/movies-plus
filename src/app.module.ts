@@ -10,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
 import { OperatorsModule } from './operators/operators.module';
 import { MoviesModule } from './movies/movies.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { MoviesModule } from './movies/movies.module';
         DEFAULT_OPERATOR_PASSWORD: Joi.string().required(),
       }),
     }),
+    ScheduleModule.forRoot(),
     DatabaseModule,
     UsersModule,
     CommonsModule,

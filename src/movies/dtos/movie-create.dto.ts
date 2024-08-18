@@ -1,12 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class MovieCreateDTO {
   @IsString()
+  @IsOptional()
   @ApiProperty()
   external_id: string;
 
   @IsString()
+  @IsOptional()
   @ApiProperty()
   external_provider: string;
 
@@ -30,7 +38,7 @@ export class MovieCreateDTO {
   @ApiProperty()
   producers: string;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   @ApiProperty()
   releaseDate: Date;

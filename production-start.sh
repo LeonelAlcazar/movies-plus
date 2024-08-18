@@ -1,0 +1,1 @@
+node ./node_modules/typeorm/cli.js --dataSource dist/database/typeorm.config.js migration:run && node ./node_modules/typeorm/cli.js --dataSource dist/database/typeorm.config.js migration:show && echo "DB configured"  && node dist/main

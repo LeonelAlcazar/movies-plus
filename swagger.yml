@@ -1,0 +1,459 @@
+openapi: 3.0.0
+paths:
+  /healthcheck:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /v1/users/me:
+    get:
+      operationId: UsersController_getMe
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+      security:
+        - user bearer: []
+  /v1/users/{id}:
+    get:
+      operationId: UsersController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+      security:
+        - user bearer: []
+  /v1/users:
+    post:
+      operationId: UsersController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterDTO'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+  /v1/users/auth/login:
+    post:
+      operationId: UsersAuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAuthLoginDTO'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAuthLoginResponseDTO'
+      tags:
+        - users
+  /v1/operators/me:
+    get:
+      operationId: OperatorsController_getMe
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+      tags:
+        - Operators
+      security:
+        - operator bearer: []
+  /v1/operators/{id}:
+    get:
+      operationId: OperatorsController_getById
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+      tags:
+        - Operators
+      security:
+        - operator bearer: []
+  /v1/operators:
+    post:
+      operationId: OperatorsController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperatorRegisterDTO'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+      tags:
+        - Operators
+      security:
+        - operator bearer: []
+  /v1/operators/auth/login:
+    post:
+      operationId: OperatorsAuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperatorAuthLoginDTO'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatorAuthLoginResponseDTO'
+      tags:
+        - Operators
+  /v1/movies:
+    get:
+      operationId: MoviesController_list
+      parameters: []
+      responses:
+        '200':
+          description: List of movies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieListResponseDTO'
+      tags:
+        - movies
+    post:
+      operationId: MoviesController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieCreateDTO'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+      tags:
+        - movies
+      security:
+        - operator bearer: []
+  /v1/movies/{id}:
+    get:
+      operationId: MoviesController_getOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+      tags:
+        - movies
+      security:
+        - user bearer: []
+    put:
+      operationId: MoviesController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieUpdateDTO'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+      tags:
+        - movies
+      security:
+        - operator bearer: []
+info:
+  title: Movies plus
+  description: API de gestion de peliculas
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    user bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    operator bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - name
+        - email
+    UserRegisterDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+      required:
+        - email
+        - password
+        - name
+    UserAuthLoginDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    UserAuthLoginResponseDTO:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+        - access_token
+    Operator:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - name
+        - email
+    OperatorRegisterDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+      required:
+        - email
+        - password
+        - name
+    OperatorAuthLoginDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    OperatorAuthLoginResponseDTO:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+        - access_token
+    Movie:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        external_id:
+          type: string
+        external_provider:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        director:
+          type: string
+        producers:
+          type: string
+        releaseDate:
+          type: string
+          format: date
+        createdById:
+          type: string
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - title
+        - description
+        - director
+        - producers
+        - releaseDate
+    MovieListResponseDTO:
+      type: object
+      properties:
+        movies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+        count:
+          type: number
+      required:
+        - movies
+        - count
+    MovieCreateDTO:
+      type: object
+      properties:
+        external_id:
+          type: string
+        external_provider:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        director:
+          type: string
+        producers:
+          type: string
+        releaseDate:
+          format: date-time
+          type: string
+      required:
+        - external_id
+        - external_provider
+        - title
+        - description
+        - director
+        - producers
+        - releaseDate
+    MovieUpdateDTO:
+      type: object
+      properties:
+        external_id:
+          type: string
+        external_provider:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        director:
+          type: string
+        producers:
+          type: string
+        releaseDate:
+          format: date-time
+          type: string
+      required:
+        - external_id
+        - external_provider
+        - title
+        - description
+        - director
+        - producers
+        - releaseDate

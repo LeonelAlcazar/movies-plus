@@ -31,7 +31,9 @@ export class Movie extends BasicEntity {
   @ApiProperty()
   title: string;
 
-  @Column()
+  @Column({
+    type: 'longtext',
+  })
   @ApiProperty()
   description: string;
 

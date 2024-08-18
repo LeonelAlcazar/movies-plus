@@ -6,6 +6,7 @@ import { Movie } from './entities/movie.entity';
 import { UsersModule } from 'src/users/users.module';
 import { OperatorsModule } from 'src/operators/operators.module';
 import { CommonsModule } from 'src/commons/commons.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CommonsModule } from 'src/commons/commons.module';
     UsersModule,
     OperatorsModule,
     CommonsModule,
+    HttpModule,
   ],
   providers: [MovieService],
   controllers: [MoviesController],
