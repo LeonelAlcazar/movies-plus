@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  mysql-server:
+    image: mysql:8.0.35
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=iPa*yrK3b*g7Cp43*i*uE7La
+      - MYSQL_DATABASE=movies_db
+      - MYSQL_USER=movies
+      - MYSQL_PASSWORD=Gj4nU8nGC9XmcoIj!f03!C6x
+    ports:
+      - 33061:3306
+    volumes:
+      - movies-api-mysql-db-volume:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 200s
+      retries: 10
+
+volumes:
+  movies-api-mysql-db-volume:
