@@ -11,5 +11,6 @@ import { OperatorAuth } from './entities/operator-auth.entity';
   imports: [TypeOrmModule.forFeature([Operator, OperatorAuth])],
   providers: [OperatorService, OperatorAuthService],
   controllers: [OperatorsController, OperatorsAuthController],
+  exports: [OperatorService],
 })
 export class OperatorsModule {}

@@ -9,6 +9,7 @@ import * as Joi from 'joi';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseModule } from './database/database.module';
 import { OperatorsModule } from './operators/operators.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { OperatorsModule } from './operators/operators.module';
       }),
     }),
     OperatorsModule,
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
